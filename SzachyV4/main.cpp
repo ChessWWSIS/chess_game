@@ -6,6 +6,12 @@
 
 using namespace std;
 
+class Pionek
+{
+    public:
+
+};
+
 int main()
 {
 
@@ -20,48 +26,14 @@ int main()
     zaznaPola.loadFromFile("images/zaznaPola.png");
     bierki.loadFromFile("images/bierki.png");
 
-    sf::Sprite szachownica, zaznaczeniePola, pionekb, wiezab, konb, goniecb, hetmanb, krolb, pionekc, wiezac, konc, goniecc, hetmanc, krolc;
+    sf::Sprite szachownica, zaznaczeniePola;
+    sf::Sprite f[32];
 
     szachownica.setTexture(tekstura);
     zaznaczeniePola.setTexture(zaznaPola);
 
-    pionekc.setTexture(bierki);
-    pionekc.setTextureRect(sf::IntRect(500, 100, 100, 100));
 
-    pionekb.setTexture(bierki);
-    pionekb.setTextureRect(sf::IntRect(500, 0, 100, 100));
-
-    wiezac.setTexture(bierki);
-    wiezac.setTextureRect(sf::IntRect(0, 100, 100, 100));
-
-    wiezab.setTexture(bierki);
-    wiezab.setTextureRect(sf::IntRect(0, 0, 100, 100));
-
-    konc.setTexture(bierki);
-    konc.setTextureRect(sf::IntRect(100, 100, 100, 100));
-
-    konb.setTexture(bierki);
-    konb.setTextureRect(sf::IntRect(100, 0, 100, 100));
-
-    goniecc.setTexture(bierki);
-    goniecc.setTextureRect(sf::IntRect(200, 100, 100, 100));
-
-    goniecb.setTexture(bierki);
-    goniecb.setTextureRect(sf::IntRect(200, 0, 100, 100));
-
-    hetmanc.setTexture(bierki);
-    hetmanc.setTextureRect(sf::IntRect(300, 100, 100, 100));
-
-    hetmanb.setTexture(bierki);
-    hetmanb.setTextureRect(sf::IntRect(300, 0, 100, 100));
-
-    krolc.setTexture(bierki);
-    krolc.setTextureRect(sf::IntRect(400, 100, 100, 100));
-
-    krolb.setTexture(bierki);
-    krolb.setTextureRect(sf::IntRect(400, 0, 100, 100));
-
-    bool czyPoleZaznaczone = false;
+    bool czyPoleZaznaczone, graWToku = false;
     int indeksPionka;
 
     while(okno.isOpen())
@@ -74,58 +46,109 @@ int main()
         }
 
         okno.draw(szachownica);
+        if (graWToku == false)
+        {
+            for (int i = 0; i < 8; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(500, 100, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(100*i, 100);
+                }
 
-        for (int i = 0; i < 8; i++)
-            {
-                okno.draw(pionekc);
-                pionekc.setPosition(100*i, 100);
-            }
+            for (int i = 8; i < 16; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(500, 0, 100, 100));
+                    okno.draw(f[6]);
+                    f[i].setPosition(100*i, 600);
+                }
 
-        for (int i = 0; i < 8; i++)
-            {
-                okno.draw(pionekb);
-                pionekb.setPosition(100*i, 600);
-            }
+            for (int i = 16; i < 18; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(0, 100, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(0,0);
+                    okno.draw(f[i]);
+                    f[i].setPosition(700,0);
+                }
 
-            okno.draw(wiezac);
-            wiezac.setPosition(0,0);
-            okno.draw(wiezac);
-            wiezac.setPosition(700,0);
+            for (int i = 18; i < 20; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(0, 0, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(0,700);
+                    okno.draw(f[i]);
+                    f[i].setPosition(700,700);
+                }
 
-            okno.draw(wiezab);
-            wiezab.setPosition(0,700);
-            okno.draw(wiezab);
-            wiezab.setPosition(700,700);
+            for (int i = 20; i < 22; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(100, 100, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(100,0);
+                    okno.draw(f[i]);
+                    f[i].setPosition(600,0);
+                }
 
-            okno.draw(konc);
-            konc.setPosition(100,0);
-            okno.draw(konc);
-            konc.setPosition(600,0);
+            for (int i = 22; i < 24; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(100, 0, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(100,700);
+                    okno.draw(f[i]);
+                    f[i].setPosition(600,700);
+                }
 
-            okno.draw(konb);
-            konb.setPosition(100,700);
-            okno.draw(konb);
-            konb.setPosition(600,700);
+            for (int i = 24; i < 26; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(200, 100, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(200,0);
+                    okno.draw(f[i]);
+                    f[i].setPosition(500,0);
+                }
 
-            okno.draw(goniecc);
-            goniecc.setPosition(200,0);
-            okno.draw(goniecc);
-            goniecc.setPosition(500,0);
+            for (int i = 26; i < 28; i++)
+                {
+                    f[i].setTexture(bierki);
+                    f[i].setTextureRect(sf::IntRect(200, 0, 100, 100));
+                    okno.draw(f[i]);
+                    f[i].setPosition(200,700);
+                    okno.draw(f[i]);
+                    f[i].setPosition(500,700);
+                }
 
-            okno.draw(goniecb);
-            goniecb.setPosition(200,700);
-            okno.draw(goniecb);
-            goniecb.setPosition(500,700);
 
-            okno.draw(hetmanc);
-            hetmanc.setPosition(300,000);
-            okno.draw(hetmanb);
-            hetmanb.setPosition(300,700);
+            f[28].setTexture(bierki);
+            f[28].setTextureRect(sf::IntRect(300, 100, 100, 100));
+            okno.draw(f[28]);
+            f[28].setPosition(300,000);
 
-            okno.draw(krolc);
-            krolc.setPosition(400,000);
-            okno.draw(krolb);
-            krolb.setPosition(400,700);
+            f[29].setTexture(bierki);
+            f[29].setTextureRect(sf::IntRect(300, 0, 100, 100));
+            okno.draw(f[29]);
+            f[29].setPosition(300,700);
+
+            f[30].setTexture(bierki);
+            f[30].setTextureRect(sf::IntRect(400, 100, 100, 100));
+            okno.draw(f[30]);
+            f[30].setPosition(400,000);
+
+            f[31].setTexture(bierki);
+            f[31].setTextureRect(sf::IntRect(400, 0, 100, 100));
+            okno.draw(f[31]);
+            f[31].setPosition(400,700);
+
+
+        }
+    //    graWToku = true;
+
 
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -134,6 +157,14 @@ int main()
             pozycjaMyszy.x = (pozycjaMyszy.x / 100) * 100;
             pozycjaMyszy.y = (pozycjaMyszy.y / 100) * 100;
             czyPoleZaznaczone = true;
+            for (int i = 0; i < 32; i++)
+            {
+                if (f[i].getPosition().x == sf::Mouse::getPosition( okno ).x && f[i].getPosition().y == sf::Mouse::getPosition( okno ).y)
+                {
+                    //tutaj opcje dla pionkow
+                }
+            }
+
 
         }
         if (czyPoleZaznaczone == true)
