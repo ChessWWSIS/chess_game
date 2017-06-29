@@ -60,8 +60,8 @@ int main()
                 {
                     f[i].setTexture(bierki);
                     f[i].setTextureRect(sf::IntRect(500, 0, 100, 100));
-                    okno.draw(f[6]);
-                    f[i].setPosition(100*i, 600);
+                    okno.draw(f[i]);
+                    f[i].setPosition(100*(i-8), 600);
                 }
 
             for (int i = 16; i < 18; i++)
