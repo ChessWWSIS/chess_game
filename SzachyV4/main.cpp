@@ -4,10 +4,8 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 
-using namespace std;
 
-int main()
-{
+using namespace std;
 
     sf::RenderWindow okno(sf::VideoMode(800,800),"Szachy");
     sf::Event wydarzenie;
@@ -16,15 +14,12 @@ int main()
 
     sf::Texture tekstura, zaznaPola, bierki;
 
-    tekstura.loadFromFile( "images/szachownica.jpg" );
-    zaznaPola.loadFromFile("images/zaznaPola.png");
-    bierki.loadFromFile("images/bierki.png");
+
 
     sf::Sprite szachownica, zaznaczeniePola;
     sf::Sprite f[32];
 
-    szachownica.setTexture(tekstura);
-    zaznaczeniePola.setTexture(zaznaPola);
+
 
 
     bool graWToku = false;
@@ -36,8 +31,21 @@ int main()
     int czyNastRPionka[16];
     int zaznaczonyPionek;
 
+int main()
+{
+    // ładowanie tekstur
+    tekstura.loadFromFile( "images/szachownica.jpg" );
+    zaznaPola.loadFromFile("images/zaznaPola.png");
+    bierki.loadFromFile("images/bierki.png");
+
+    szachownica.setTexture(tekstura);
+    zaznaczeniePola.setTexture(zaznaPola);
+
+
+    // główna pętla gry
     while(okno.isOpen())
     {
+        //zamykanie gry
         while(okno.pollEvent(wydarzenie))
         {
             if(wydarzenie.type == sf::Event::KeyPressed && wydarzenie.key.code ==
@@ -46,27 +54,35 @@ int main()
         }
 
         okno.draw(szachownica);
+
+        //rysowanie pionków
         if (graWToku == false)
         {
+
+            //rysowanie czarnych pionkow
             for (int i = 0; i < 8; i++)
             {
                 f[i].setTexture(bierki);
+                 //pobieranie grafiki konkretnego pionka | ponizej na tej samej zasadzie to dziala
                 f[i].setTextureRect(sf::IntRect(500, 100, 100, 100));
                 okno.draw(f[i]);
+                //ustawianie na konkrektnej pozycji | ponizej na tej samej zasadzie to dziala
                 f[i].setPosition(100*i, 100);
-                board[i][6] = i+1;
+                //przypisywanie id do tablicy | ponizej na tej samej zasadzie to dziala
+                board[1][i] = i+1;
             }
 
+            //rysowanie bialych pionkow
             for (int i = 8; i < 16; i++)
             {
                 f[i].setTexture(bierki);
                 f[i].setTextureRect(sf::IntRect(500, 0, 100, 100));
                 okno.draw(f[i]);
                 f[i].setPosition(100*(i-8), 600);
-                board[i-8][6] = i+1;
+                board[6][i-8] = i+1;
             }
 
-
+            //rysowanie czarnych wiez
             f[16].setTexture(bierki);
             f[16].setTextureRect(sf::IntRect(0, 100, 100, 100));
             okno.draw(f[16]);
@@ -79,6 +95,7 @@ int main()
             f[17].setPosition(700,0);
             board[0][7] = 18;
 
+            //rysowanie bialych wiez
             f[18].setTexture(bierki);
             f[18].setTextureRect(sf::IntRect(0, 0, 100, 100));
             okno.draw(f[18]);
@@ -91,6 +108,7 @@ int main()
             f[19].setPosition(700,700);
             board[7][7] = 20;
 
+            //rysowanie czarnych koni
             f[20].setTexture(bierki);
             f[20].setTextureRect(sf::IntRect(100, 100, 100, 100));
             okno.draw(f[20]);
@@ -101,8 +119,9 @@ int main()
             f[21].setTextureRect(sf::IntRect(100, 100, 100, 100));
             okno.draw(f[21]);
             f[21].setPosition(600,0);
-                board[0][6] = 22;
+            board[0][6] = 22;
 
+            //rysowanie bialych koni
             f[22].setTexture(bierki);
             f[22].setTextureRect(sf::IntRect(100, 0, 100, 100));
             okno.draw(f[22]);
@@ -115,6 +134,7 @@ int main()
             f[23].setPosition(600,700);
             board[7][6] = 24;
 
+            //rysowanie czarnych goncow
             f[24].setTexture(bierki);
             f[24].setTextureRect(sf::IntRect(200, 100, 100, 100));
             okno.draw(f[24]);
@@ -127,6 +147,7 @@ int main()
             f[25].setPosition(500,0);
             board[0][5] = 26;
 
+            //rysowanie bialych goncow
             f[26].setTexture(bierki);
             f[26].setTextureRect(sf::IntRect(200, 0, 100, 100));
             okno.draw(f[26]);
@@ -139,24 +160,28 @@ int main()
             f[27].setPosition(500,700);
             board[7][5] = 28;
 
+            //rysowanie czarnego hetmana
             f[28].setTexture(bierki);
             f[28].setTextureRect(sf::IntRect(300, 100, 100, 100));
             okno.draw(f[28]);
             f[28].setPosition(300,000);
             board[0][3] = 29;
 
+            //rysowanie bialego hetmana
             f[29].setTexture(bierki);
             f[29].setTextureRect(sf::IntRect(300, 0, 100, 100));
             okno.draw(f[29]);
             f[29].setPosition(300,700);
             board[7][3] = 30;
 
+            //rysowanie czarnego krola
             f[30].setTexture(bierki);
             f[30].setTextureRect(sf::IntRect(400, 100, 100, 100));
             okno.draw(f[30]);
             f[30].setPosition(400,000);
             board[0][4] = 31;
 
+            //rysowanie bialego krola
             f[31].setTexture(bierki);
             f[31].setTextureRect(sf::IntRect(400, 0, 100, 100));
             okno.draw(f[31]);
@@ -168,7 +193,7 @@ int main()
         //graWToku = true;
 
 
-
+        //pobieranie pozycji kliknięcia
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             pozycjaMyszy = sf::Mouse::getPosition( okno );
@@ -179,6 +204,8 @@ int main()
 
 
         }
+
+        //zaznaczanie mozliwych ruchow
         if (czyPoleZaznaczone == false)
         {
             for (int i = 0; i < 32; i++)
@@ -321,6 +348,7 @@ int main()
 
 
         }
+
 
         else if (czyPoleZaznaczone == true)
         {
