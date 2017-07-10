@@ -7,29 +7,29 @@
 
 using namespace std;
 
-    sf::RenderWindow okno(sf::VideoMode(800,800),"Szachy");
-    sf::Event wydarzenie;
-    sf::Vector2i pozycjaMyszy, nowaPozycjaMyszy;
+sf::RenderWindow okno(sf::VideoMode(800,800),"Szachy");
+sf::Event wydarzenie;
+sf::Vector2i pozycjaMyszy, nowaPozycjaMyszy;
 //    sf::Vector2f pozycjaMyszyNaScenie;
 
-    sf::Texture tekstura, zaznaPola, bierki;
+sf::Texture tekstura, zaznaPola, bierki;
 
 
 
-    sf::Sprite szachownica, zaznaczeniePola;
-    sf::Sprite f[32];
+sf::Sprite szachownica, zaznaczeniePola;
+sf::Sprite f[32];
 
 
 
 
-    bool graWToku = false;
-    bool czyPoleZaznaczone = false;
+bool graWToku = false;
+int czyPoleZaznaczone = 0;
 
 
-    int board [8][8];
-    int nowaPozycja(int x, int y);
-    int czyNastRPionka[16];
-    int zaznaczonyPionek;
+int board [8][8];
+int nowaPozycja(int x, int y);
+int czyNastRPionka[16];
+int zaznaczonyPionek;
 
 int main()
 {
@@ -41,6 +41,98 @@ int main()
     szachownica.setTexture(tekstura);
     zaznaczeniePola.setTexture(zaznaPola);
 
+    for (int i = 0; i < 8; i++)
+    {
+        f[i].setTexture(bierki);
+        //pobieranie grafiki konkretnego pionka | ponizej na tej samej zasadzie to dziala
+        f[i].setTextureRect(sf::IntRect(500, 100, 100, 100));
+
+        //przypisywanie id do tablicy | ponizej na tej samej zasadzie to dziala
+        board[1][i] = i+1;
+    }
+
+    //rysowanie bialych pionkow
+    for (int i = 8; i < 16; i++)
+    {
+        f[i].setTexture(bierki);
+        f[i].setTextureRect(sf::IntRect(500, 0, 100, 100));
+        board[6][i-8] = i+1;
+    }
+
+    //rysowanie czarnych wiez
+    f[16].setTexture(bierki);
+    f[16].setTextureRect(sf::IntRect(0, 100, 100, 100));
+    board[0][0] = 17;
+
+    f[17].setTexture(bierki);
+    f[17].setTextureRect(sf::IntRect(0, 100, 100, 100));
+    board[0][7] = 18;
+
+    //rysowanie bialych wiez
+    f[18].setTexture(bierki);
+    f[18].setTextureRect(sf::IntRect(0, 0, 100, 100));
+    board[7][0] = 19;
+
+    f[19].setTexture(bierki);
+    f[19].setTextureRect(sf::IntRect(0, 0, 100, 100));
+    board[7][7] = 20;
+
+    //rysowanie czarnych koni
+    f[20].setTexture(bierki);
+    f[20].setTextureRect(sf::IntRect(100, 100, 100, 100));
+    board[0][1] = 21;
+
+    f[21].setTexture(bierki);
+    f[21].setTextureRect(sf::IntRect(100, 100, 100, 100));
+    board[0][6] = 22;
+
+    //rysowanie bialych koni
+    f[22].setTexture(bierki);
+    f[22].setTextureRect(sf::IntRect(100, 0, 100, 100));
+    board[7][1] = 23;
+
+    f[23].setTexture(bierki);
+    f[23].setTextureRect(sf::IntRect(100, 0, 100, 100));
+    board[7][6] = 24;
+
+    //rysowanie czarnych goncow
+    f[24].setTexture(bierki);
+    f[24].setTextureRect(sf::IntRect(200, 100, 100, 100));
+    board[0][2] = 25;
+
+    f[25].setTexture(bierki);
+    f[25].setTextureRect(sf::IntRect(200, 100, 100, 100));
+    board[0][5] = 26;
+
+    //rysowanie bialych goncow
+    f[26].setTexture(bierki);
+    f[26].setTextureRect(sf::IntRect(200, 0, 100, 100));
+    board[7][2] = 27;
+
+    f[27].setTexture(bierki);
+    f[27].setTextureRect(sf::IntRect(200, 0, 100, 100));
+    board[7][5] = 28;
+
+    //rysowanie czarnego hetmana
+    f[28].setTexture(bierki);
+    f[28].setTextureRect(sf::IntRect(300, 100, 100, 100));
+    board[0][3] = 29;
+
+    //rysowanie bialego hetmana
+    f[29].setTexture(bierki);
+    f[29].setTextureRect(sf::IntRect(300, 0, 100, 100));
+    board[7][3] = 30;
+
+    //rysowanie czarnego krola
+    f[30].setTexture(bierki);
+    f[30].setTextureRect(sf::IntRect(400, 100, 100, 100));
+    board[0][4] = 31;
+
+    //rysowanie bialego krola
+    f[31].setTexture(bierki);
+    f[31].setTextureRect(sf::IntRect(400, 0, 100, 100));
+    board[7][4] = 32;
+
 
 
     // główna pętla gry
@@ -50,103 +142,13 @@ int main()
         while(okno.pollEvent(wydarzenie))
         {
             if(wydarzenie.type == sf::Event::KeyPressed && wydarzenie.key.code ==
-               sf::Keyboard::Escape)
+                    sf::Keyboard::Escape)
                 okno.close();
         }
 
         okno.draw(szachownica);
 
-            for (int i = 0; i < 8; i++)
-            {
-                f[i].setTexture(bierki);
-                 //pobieranie grafiki konkretnego pionka | ponizej na tej samej zasadzie to dziala
-                f[i].setTextureRect(sf::IntRect(500, 100, 100, 100));
 
-                //przypisywanie id do tablicy | ponizej na tej samej zasadzie to dziala
-                board[1][i] = i+1;
-            }
-
-            //rysowanie bialych pionkow
-            for (int i = 8; i < 16; i++)
-            {
-                f[i].setTexture(bierki);
-                f[i].setTextureRect(sf::IntRect(500, 0, 100, 100));
-                board[6][i-8] = i+1;
-            }
-
-            //rysowanie czarnych wiez
-            f[16].setTexture(bierki);
-            f[16].setTextureRect(sf::IntRect(0, 100, 100, 100));
-            board[0][0] = 17;
-
-            f[17].setTexture(bierki);
-            f[17].setTextureRect(sf::IntRect(0, 100, 100, 100));
-            board[0][7] = 18;
-
-            //rysowanie bialych wiez
-            f[18].setTexture(bierki);
-            f[18].setTextureRect(sf::IntRect(0, 0, 100, 100));
-            board[7][0] = 19;
-
-            f[19].setTexture(bierki);
-            f[19].setTextureRect(sf::IntRect(0, 0, 100, 100));
-            board[7][7] = 20;
-
-            //rysowanie czarnych koni
-            f[20].setTexture(bierki);
-            f[20].setTextureRect(sf::IntRect(100, 100, 100, 100));
-            board[0][1] = 21;
-
-            f[21].setTexture(bierki);
-            f[21].setTextureRect(sf::IntRect(100, 100, 100, 100));
-            board[0][6] = 22;
-
-            //rysowanie bialych koni
-            f[22].setTexture(bierki);
-            f[22].setTextureRect(sf::IntRect(100, 0, 100, 100));
-            board[7][1] = 23;
-
-            f[23].setTexture(bierki);
-            f[23].setTextureRect(sf::IntRect(100, 0, 100, 100));
-            board[7][6] = 24;
-
-            //rysowanie czarnych goncow
-            f[24].setTexture(bierki);
-            f[24].setTextureRect(sf::IntRect(200, 100, 100, 100));
-            board[0][2] = 25;
-
-            f[25].setTexture(bierki);
-            f[25].setTextureRect(sf::IntRect(200, 100, 100, 100));
-            board[0][5] = 26;
-
-            //rysowanie bialych goncow
-            f[26].setTexture(bierki);
-            f[26].setTextureRect(sf::IntRect(200, 0, 100, 100));
-            board[7][2] = 27;
-
-            f[27].setTexture(bierki);
-            f[27].setTextureRect(sf::IntRect(200, 0, 100, 100));
-            board[7][5] = 28;
-
-            //rysowanie czarnego hetmana
-            f[28].setTexture(bierki);
-            f[28].setTextureRect(sf::IntRect(300, 100, 100, 100));
-            board[0][3] = 29;
-
-            //rysowanie bialego hetmana
-            f[29].setTexture(bierki);
-            f[29].setTextureRect(sf::IntRect(300, 0, 100, 100));
-            board[7][3] = 30;
-
-            //rysowanie czarnego krola
-            f[30].setTexture(bierki);
-            f[30].setTextureRect(sf::IntRect(400, 100, 100, 100));
-            board[0][4] = 31;
-
-            //rysowanie bialego krola
-            f[31].setTexture(bierki);
-            f[31].setTextureRect(sf::IntRect(400, 0, 100, 100));
-            board[7][4] = 32;
 
         //p pionków
         for (int i = 0; i < 32; i++)
@@ -234,20 +236,20 @@ int main()
         {
             if (wydarzenie.mouseButton.button == sf::Mouse::Left)
             {
-//                std::cout << "the right button was pressed" << std::endl;
-//                std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-//                std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-//                pozycjaMyszy = sf::Mouse::getPosition( okno );
+
                 pozycjaMyszy.x = (wydarzenie.mouseButton.x / 100) * 100;
                 pozycjaMyszy.y = (wydarzenie.mouseButton.y / 100) * 100;
 
 
+
             }
-            czyPoleZaznaczone = !czyPoleZaznaczone;
+            czyPoleZaznaczone++;
+
         }
 
+
         //zaznaczanie mozliwych ruchow
-        if (czyPoleZaznaczone == false)
+        if (czyPoleZaznaczone % 2 > 0)
         {
             for (int i = 0; i < 32; i++)
             {
@@ -256,7 +258,7 @@ int main()
                     zaznaczonyPionek = i;
 
 //zaznaczaie mozliwych ruchow
-                //zaznaczanie dla czarnych pionkow
+                    //zaznaczanie dla czarnych pionkow
                     if (i < 8)
                     {
                         if (czyNastRPionka[i] == 0)
@@ -272,7 +274,7 @@ int main()
                             zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
                         }
                     }
-                //zaznaczanie dla bialych pionkow
+                    //zaznaczanie dla bialych pionkow
                     else if (i >= 8 && i < 16)
                     {
                         if (czyNastRPionka[i] == 0)
@@ -288,23 +290,23 @@ int main()
                             zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
                         }
                     }
-                //zaznaczanie wszystkich wiez
+                    //zaznaczanie wszystkich wiez
                     else if (i >= 16 && i < 20)
                     {
                         for (int j = -7; j < 8; j++)
                         {
-                                for (int l = -7; l < 8; l++)
-                                {
-                                    if (l == 0) l++;
-                                    okno.draw(zaznaczeniePola);
-                                    zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
-                                }
+                            for (int l = -7; l < 8; l++)
+                            {
+                                if (l == 0) l++;
+                                okno.draw(zaznaczeniePola);
+                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                            }
                             if (j == 0) j++;
                             okno.draw(zaznaczeniePola);
                             zaznaczeniePola.setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
                         }
                     }
-                //zaznaczanie dla wszystkich koni
+                    //zaznaczanie dla wszystkich koni
                     else if (i >= 20 && i < 24)
                     {
                         okno.draw(zaznaczeniePola);
@@ -324,35 +326,35 @@ int main()
                         okno.draw(zaznaczeniePola);
                         zaznaczeniePola.setPosition(f[i].getPosition().x-200,f[i].getPosition().y-100);
                     }
-                //znaznaczanie dla wszystkich goncow
+                    //znaznaczanie dla wszystkich goncow
                     else if (i >= 24 && i < 28)
                     {
                         for (int j = -7; j < 8; j++)
                         {
-                                for (int l = -7; l < 8; l++)
-                                {
-                                    if (l == 0) l++;
-                                    okno.draw(zaznaczeniePola);
-                                    zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
-                                }
+                            for (int l = -7; l < 8; l++)
+                            {
+                                if (l == 0) l++;
+                                okno.draw(zaznaczeniePola);
+                                zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
+                            }
                             if (j == 0) j++;
                             okno.draw(zaznaczeniePola);
                             zaznaczeniePola.setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
                         }
                     }
-                //zaznaczenie dla hetmanów
+                    //zaznaczenie dla hetmanów
                     else if (i >=28 && i < 30)
                     {
                         for (int j = -7; j < 8; j++)
                         {
-                                for (int l = -7; l < 8; l++)
-                                {
-                                    if (l == 0) l++;
-                                    okno.draw(zaznaczeniePola);
-                                    zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
-                                    okno.draw(zaznaczeniePola);
-                                    zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
-                                }
+                            for (int l = -7; l < 8; l++)
+                            {
+                                if (l == 0) l++;
+                                okno.draw(zaznaczeniePola);
+                                zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
+                                okno.draw(zaznaczeniePola);
+                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                            }
                             if (j == 0) j++;
                             okno.draw(zaznaczeniePola);
                             zaznaczeniePola.setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
@@ -360,7 +362,7 @@ int main()
                             zaznaczeniePola.setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
                         }
                     }
-                //zaznaczanie dla kroli
+                    //zaznaczanie dla kroli
                     else if (i >=30 && i <32)
                     {
 
@@ -391,7 +393,7 @@ int main()
         }
 
 
-        else if (czyPoleZaznaczone == true)
+        else if (czyPoleZaznaczone % 2 == 0)
         {
 
             //zmiana pozycji
@@ -408,6 +410,6 @@ int main()
 
     }
 
-return 0;
+    return 0;
 
 }
