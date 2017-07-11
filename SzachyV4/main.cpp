@@ -31,7 +31,7 @@ int czyPoleZaznaczone = 0;
 
 int board [8][8];
 int nowaPozycja(int x, int y);
-int czyNastRPionka[16];
+bool czyNastRPionka[16];
 int zaznaczonyPionek = -1;
 int maxZaznaczen;
 
@@ -43,6 +43,12 @@ int main()
     bierki.loadFromFile("images/bierki.png");
 
     szachownica.setTexture(tekstura);
+
+    for (int i = 0; i < 16; i++)
+        {
+            czyNastRPionka[i] = false;
+        }
+
     for (int i = 0; i < 32; i++)
     {
         zaznaczeniePola[i].setTexture(zaznaPola);
@@ -297,7 +303,7 @@ int main()
                     if (i < 8)
                     {
 
-                        if (czyNastRPionka[i] == 0)
+                        if (czyNastRPionka[i] == false)
                         {
                             for (int j = 0; j < 2; j++)
                             {
@@ -320,7 +326,7 @@ int main()
                     //zaznaczanie dla bialych pionkow
                     else if (i >= 8 && i < 16)
                     {
-                        if (czyNastRPionka[i] == 0)
+                        if (czyNastRPionka[i] == false)
                         {
                             for (int j = 0; j < 2; j++)
                             {
@@ -459,6 +465,8 @@ int main()
                 {
                     if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
                     {
+                        board[pozycjaMyszy.y/100][pozycjaMyszy.x/100] = zaznaczonyPionek+1;
+                        board[int(f[zaznaczonyPionek].getPosition().y/100+0.5)][int(f[zaznaczonyPionek].getPosition().x/100+0.5)] = 0;
                         f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
                         for (int i = 0; i < 32; i++)
                         {
@@ -468,6 +476,12 @@ int main()
                                 f[i].setPosition(1000,1000);
                             }
                         }
+
+                        if (zaznaczonyPionek < 16)
+                        {
+                            czyNastRPionka[zaznaczonyPionek] = true;
+                        }
+
                         ruchBialych = !ruchBialych;
                     }
                     else
