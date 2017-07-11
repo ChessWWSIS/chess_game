@@ -237,13 +237,18 @@ int main()
             if (wydarzenie.mouseButton.button == sf::Mouse::Left)
             {
 
+                if ((wydarzenie.mouseButton.x / 100) * 100 != pozycjaMyszy.x || (wydarzenie.mouseButton.y / 100) * 100 != pozycjaMyszy.y)
+                {
+                    czyPoleZaznaczone++;
+                }
                 pozycjaMyszy.x = (wydarzenie.mouseButton.x / 100) * 100;
                 pozycjaMyszy.y = (wydarzenie.mouseButton.y / 100) * 100;
 
 
 
+
             }
-            czyPoleZaznaczone++;
+
 
         }
 
@@ -253,7 +258,7 @@ int main()
         {
 
         }
-        else if (czyPoleZaznaczone % 2 == 0)
+        else if (czyPoleZaznaczone % 2 > 0)
         {
             for (int i = 0; i < 32; i++)
             {
@@ -397,7 +402,7 @@ int main()
         }
 
 
-        else if (czyPoleZaznaczone % 2 > 0)
+        else if (czyPoleZaznaczone % 2 == 0)
         {
 
             //zmiana pozycji
