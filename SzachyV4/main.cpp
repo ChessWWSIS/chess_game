@@ -406,8 +406,15 @@ int main()
         {
 
             //zmiana pozycji
+            if (pozycjaMyszy.x == zaznaczeniePola.getPosition().x && pozycjaMyszy.y == zaznaczeniePola.getPosition().y)
+            {
+                f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+            }
+            else
+            {
+                czyPoleZaznaczone--;
+            }
 
-            f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
 
 
 
