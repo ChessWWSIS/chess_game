@@ -16,8 +16,9 @@ sf::Texture tekstura, zaznaPola, bierki;
 
 
 
-sf::Sprite szachownica, zaznaczeniePola;
+sf::Sprite szachownica;
 sf::Sprite f[32];
+sf::Sprite zaznaczeniePola[60];
 
 
 
@@ -30,6 +31,7 @@ int board [8][8];
 int nowaPozycja(int x, int y);
 int czyNastRPionka[16];
 int zaznaczonyPionek = -1;
+int maxZaznaczen;
 
 int main()
 {
@@ -39,7 +41,11 @@ int main()
     bierki.loadFromFile("images/bierki.png");
 
     szachownica.setTexture(tekstura);
-    zaznaczeniePola.setTexture(zaznaPola);
+    for (int i = 0; i < 32; i++)
+    {
+        zaznaczeniePola[i].setTexture(zaznaPola);
+    }
+
 
     for (int i = 0; i < 8; i++)
     {
@@ -272,15 +278,22 @@ int main()
                     {
                         if (czyNastRPionka[i] == 0)
                         {
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
+                            for (int j = 0; j < 2; j++)
+                            {
+                                okno.draw(zaznaczeniePola[j]);
+                                zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y+((j+1)*100));
+//                                okno.draw(zaznaczeniePola);
+//                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
+                                maxZaznaczen = j+1;
+                            }
+
+
                         }
                         else
                         {
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
+                            okno.draw(zaznaczeniePola[0]);
+                            zaznaczeniePola[0].setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
+                            maxZaznaczen = 1;
                         }
                     }
                     //zaznaczanie dla bialych pionkow
@@ -288,15 +301,21 @@ int main()
                     {
                         if (czyNastRPionka[i] == 0)
                         {
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-200);
+                            for (int j = 0; j < 2; j++)
+                            {
+                                okno.draw(zaznaczeniePola[j]);
+                                zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y-((j+1)*100));
+//                                okno.draw(zaznaczeniePola);
+//                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-200);
+                                maxZaznaczen = j+1;
+                            }
+
                         }
                         else
                         {
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
+                            okno.draw(zaznaczeniePola[0]);
+                            zaznaczeniePola[0].setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
+                            maxZaznaczen = 1;
                         }
                     }
                     //zaznaczanie wszystkich wiez
@@ -307,33 +326,36 @@ int main()
                             for (int l = -7; l < 8; l++)
                             {
                                 if (l == 0) l++;
-                                okno.draw(zaznaczeniePola);
-                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                                okno.draw(zaznaczeniePola[l+7]);
+                                zaznaczeniePola[l+7].setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                                maxZaznaczen = l+8;
                             }
                             if (j == 0) j++;
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
+                            okno.draw(zaznaczeniePola[j+22]);
+                            zaznaczeniePola[j+22].setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
+                            maxZaznaczen = j+23;
                         }
                     }
                     //zaznaczanie dla wszystkich koni
                     else if (i >= 20 && i < 24)
                     {
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+100,f[i].getPosition().y+200);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+100,f[i].getPosition().y-200);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-100,f[i].getPosition().y+200);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-100,f[i].getPosition().y-200);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+200,f[i].getPosition().y+100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+200,f[i].getPosition().y-100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-200,f[i].getPosition().y+100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-200,f[i].getPosition().y-100);
+                        okno.draw(zaznaczeniePola[0]);
+                        zaznaczeniePola[0].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+200);
+                        okno.draw(zaznaczeniePola[1]);
+                        zaznaczeniePola[1].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-200);
+                        okno.draw(zaznaczeniePola[2]);
+                        zaznaczeniePola[2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+200);
+                        okno.draw(zaznaczeniePola[3]);
+                        zaznaczeniePola[3].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-200);
+                        okno.draw(zaznaczeniePola[4]);
+                        zaznaczeniePola[4].setPosition(f[i].getPosition().x+200,f[i].getPosition().y+100);
+                        okno.draw(zaznaczeniePola[5]);
+                        zaznaczeniePola[5].setPosition(f[i].getPosition().x+200,f[i].getPosition().y-100);
+                        okno.draw(zaznaczeniePola[6]);
+                        zaznaczeniePola[6].setPosition(f[i].getPosition().x-200,f[i].getPosition().y+100);
+                        okno.draw(zaznaczeniePola[7]);
+                        zaznaczeniePola[7].setPosition(f[i].getPosition().x-200,f[i].getPosition().y-100);
+                        maxZaznaczen = 8;
                     }
                     //znaznaczanie dla wszystkich goncow
                     else if (i >= 24 && i < 28)
@@ -343,12 +365,14 @@ int main()
                             for (int l = -7; l < 8; l++)
                             {
                                 if (l == 0) l++;
-                                okno.draw(zaznaczeniePola);
-                                zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
+                                okno.draw(zaznaczeniePola[l+7]);
+                                zaznaczeniePola[l+7].setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
+                                maxZaznaczen = l+8;
                             }
                             if (j == 0) j++;
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
+                            okno.draw(zaznaczeniePola[j+22]);
+                            zaznaczeniePola[j+22].setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
+                            maxZaznaczen = j+23;
                         }
                     }
                     //zaznaczenie dla hetmanów
@@ -359,38 +383,41 @@ int main()
                             for (int l = -7; l < 8; l++)
                             {
                                 if (l == 0) l++;
-                                okno.draw(zaznaczeniePola);
-                                zaznaczeniePola.setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
-                                okno.draw(zaznaczeniePola);
-                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                                okno.draw(zaznaczeniePola[l+7]);
+                                zaznaczeniePola[l+7].setPosition(f[i].getPosition().x+(l*100),f[i].getPosition().y+(l*100));
+                                okno.draw(zaznaczeniePola[l+22]);
+                                zaznaczeniePola[l+22].setPosition(f[i].getPosition().x,f[i].getPosition().y+(l*100));
+                                maxZaznaczen = l+23;
                             }
                             if (j == 0) j++;
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
-                            okno.draw(zaznaczeniePola);
-                            zaznaczeniePola.setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
+                            okno.draw(zaznaczeniePola[j+37]);
+                            zaznaczeniePola[j+37].setPosition(f[i].getPosition().x-(j*100),f[i].getPosition().y+(j*100));
+                            okno.draw(zaznaczeniePola[j+52]);
+                            zaznaczeniePola[j+52].setPosition(f[i].getPosition().x+(j*100),f[i].getPosition().y);
+                            maxZaznaczen = j+53;
                         }
                     }
                     //zaznaczanie dla kroli
                     else if (i >=30 && i <32)
                     {
 
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x+100,f[i].getPosition().y);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x-100,f[i].getPosition().y);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
-                        okno.draw(zaznaczeniePola);
-                        zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
+                        okno.draw(zaznaczeniePola[0]);
+                        zaznaczeniePola[0].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
+                        okno.draw(zaznaczeniePola[1]);
+                        zaznaczeniePola[1].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
+                        okno.draw(zaznaczeniePola[2]);
+                        zaznaczeniePola[2].setPosition(f[i].getPosition().x+100,f[i].getPosition().y);
+                        okno.draw(zaznaczeniePola[3]);
+                        zaznaczeniePola[3].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
+                        okno.draw(zaznaczeniePola[4]);
+                        zaznaczeniePola[4].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
+                        okno.draw(zaznaczeniePola[5]);
+                        zaznaczeniePola[5].setPosition(f[i].getPosition().x-100,f[i].getPosition().y);
+                        okno.draw(zaznaczeniePola[6]);
+                        zaznaczeniePola[6].setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
+                        okno.draw(zaznaczeniePola[7]);
+                        zaznaczeniePola[7].setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
+                        maxZaznaczen = 8;
                     }
 
 
@@ -401,19 +428,23 @@ int main()
 
         }
 
-
+        //zmiana pozycji
         else if (czyPoleZaznaczone % 2 == 0)
         {
+            for (int i = 0; i < maxZaznaczen; i++)
+            {
+                if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
+                {
+                    f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+                }
+                else
+                {
+                    czyPoleZaznaczone = 0;
+                }
+            }
+            maxZaznaczen = 0;
 
-            //zmiana pozycji
-            if (pozycjaMyszy.x == zaznaczeniePola.getPosition().x && pozycjaMyszy.y == zaznaczeniePola.getPosition().y)
-            {
-                f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
-            }
-            else
-            {
-                czyPoleZaznaczone--;
-            }
+
 
 
 
