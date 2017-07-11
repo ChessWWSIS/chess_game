@@ -115,22 +115,22 @@ int main()
 
     //rysowanie czarnego hetmana
     f[28].setTexture(bierki);
-    f[28].setTextureRect(sf::IntRect(300, 100, 100, 100));
+    f[28].setTextureRect(sf::IntRect(400, 100, 100, 100));
     board[0][3] = 29;
 
     //rysowanie bialego hetmana
     f[29].setTexture(bierki);
-    f[29].setTextureRect(sf::IntRect(300, 0, 100, 100));
+    f[29].setTextureRect(sf::IntRect(400, 0, 100, 100));
     board[7][3] = 30;
 
     //rysowanie czarnego krola
     f[30].setTexture(bierki);
-    f[30].setTextureRect(sf::IntRect(400, 100, 100, 100));
+    f[30].setTextureRect(sf::IntRect(300, 100, 100, 100));
     board[0][4] = 31;
 
     //rysowanie bialego krola
     f[31].setTexture(bierki);
-    f[31].setTextureRect(sf::IntRect(400, 0, 100, 100));
+    f[31].setTextureRect(sf::IntRect(300, 0, 100, 100));
     board[7][4] = 32;
 
 
