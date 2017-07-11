@@ -460,6 +460,14 @@ int main()
                     if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
                     {
                         f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+                        for (int i = 0; i < 32; i++)
+                        {
+
+                            if (f[i].getPosition().x == f[zaznaczonyPionek].getPosition().x && f[i].getPosition().y == f[zaznaczonyPionek].getPosition().y && i != zaznaczonyPionek)
+                            {
+                                f[i].setPosition(1000,1000);
+                            }
+                        }
                         ruchBialych = !ruchBialych;
                     }
                     else
