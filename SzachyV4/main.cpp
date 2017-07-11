@@ -460,6 +460,7 @@ int main()
                     if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
                     {
                         f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+                        ruchBialych = !ruchBialych;
                     }
                     else
                     {
@@ -467,7 +468,7 @@ int main()
                     }
                 }
                 maxZaznaczen = 0;
-                ruchBialych = !ruchBialych;
+
             }
 
 
