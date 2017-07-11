@@ -29,7 +29,7 @@ int czyPoleZaznaczone = 0;
 int board [8][8];
 int nowaPozycja(int x, int y);
 int czyNastRPionka[16];
-int zaznaczonyPionek;
+int zaznaczonyPionek = -1;
 
 int main()
 {
@@ -249,7 +249,11 @@ int main()
 
 
         //zaznaczanie mozliwych ruchow
-        if (czyPoleZaznaczone % 2 > 0)
+        if (czyPoleZaznaczone == 0)
+        {
+
+        }
+        else if (czyPoleZaznaczone % 2 == 0)
         {
             for (int i = 0; i < 32; i++)
             {
@@ -393,7 +397,7 @@ int main()
         }
 
 
-        else if (czyPoleZaznaczone % 2 == 0)
+        else if (czyPoleZaznaczone % 2 > 0)
         {
 
             //zmiana pozycji
