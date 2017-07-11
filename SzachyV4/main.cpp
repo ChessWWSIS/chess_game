@@ -24,6 +24,8 @@ sf::Sprite zaznaczeniePola[60];
 
 
 bool graWToku = false;
+bool czyBiale[32];
+bool ruchBialych = true;
 int czyPoleZaznaczone = 0;
 
 
@@ -171,55 +173,73 @@ int main()
                 //ustawianie na konkrektnej pozycji | ponizej na tej samej zasadzie to dziala
                 f[i].setPosition(100*i, 100);
                 //przypisywanie id do tablicy | ponizej na tej samej zasadzie to dziala
+                czyBiale[i] = false;
             }
 
             //rysowanie bialych pionkow
             for (int i = 8; i < 16; i++)
             {
                 f[i].setPosition(100*(i-8), 600);
+                czyBiale[i] = true;
             }
 
             //rysowanie czarnych wiez
             f[16].setPosition(0,0);
+            czyBiale[16] = false;
 
             f[17].setPosition(700,0);
+            czyBiale[17] = false;
 
             //rysowanie bialych wiez
             f[18].setPosition(0,700);
+            czyBiale[18] = true;
 
             f[19].setPosition(700,700);
+            czyBiale[19] = true;
 
             //rysowanie czarnych koni
             f[20].setPosition(100,0);
+            czyBiale[20] = false;
 
             f[21].setPosition(600,0);
+            czyBiale[21] = false;
 
             //rysowanie bialych koni
             f[22].setPosition(100,700);
+            czyBiale[22] = true;
 
             f[23].setPosition(600,700);
+            czyBiale[23] = true;
 
             //rysowanie czarnych goncow
             f[24].setPosition(200,0);
+            czyBiale[24] = false;
 
             f[25].setPosition(500,0);
+            czyBiale[25] = false;
 
             //rysowanie bialych goncow
             f[26].setPosition(200,700);
+            czyBiale[26] = true;
 
             f[27].setPosition(500,700);
+            czyBiale[27] = true;
 
             //rysowanie czarnego hetmana
             f[28].setPosition(300,000);
+            czyBiale[28] = false;
 
             //rysowanie bialego hetmana
             f[29].setPosition(300,700);
+            czyBiale[29] = true;
 
             //rysowanie czarnego krola
             f[30].setPosition(400,000);
+            czyBiale[30] = false;
 
             //rysowanie bialego krola
             f[31].setPosition(400,700);
+            czyBiale[31] = true;
 
 
         }
@@ -276,6 +296,7 @@ int main()
                     //zaznaczanie dla czarnych pionkow
                     if (i < 8)
                     {
+
                         if (czyNastRPionka[i] == 0)
                         {
                             for (int j = 0; j < 2; j++)
@@ -431,18 +452,23 @@ int main()
         //zmiana pozycji
         else if (czyPoleZaznaczone % 2 == 0)
         {
-            for (int i = 0; i < maxZaznaczen; i++)
+            if (czyBiale[zaznaczonyPionek] == ruchBialych)
             {
-                if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
+
+                for (int i = 0; i < maxZaznaczen; i++)
                 {
-                    f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+                    if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
+                    {
+                        f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
+                    }
+                    else
+                    {
+                        czyPoleZaznaczone = 0;
+                    }
                 }
-                else
-                {
-                    czyPoleZaznaczone = 0;
-                }
+                maxZaznaczen = 0;
+                ruchBialych = !ruchBialych;
             }
-            maxZaznaczen = 0;
 
 
 
