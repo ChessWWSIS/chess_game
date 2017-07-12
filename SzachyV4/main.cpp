@@ -307,11 +307,26 @@ int main()
                         {
                             for (int j = 0; j < 2; j++)
                             {
-                                okno.draw(zaznaczeniePola[j]);
-                                zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y+((j+1)*100));
-//                                okno.draw(zaznaczeniePola);
-//                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
-                                maxZaznaczen = j+1;
+
+                                for (int k = 0; k < 32; k++)
+                                {
+                                    if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+((j+1)*100) == f[k].getPosition().y)
+                                    {
+                                        j = 3;
+                                        break;
+
+                                    }
+
+                                }
+                                if (j != 3)
+                                    {
+                                        okno.draw(zaznaczeniePola[j]);
+                                        zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y+((j+1)*100));
+        //                                okno.draw(zaznaczeniePola);
+        //                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
+                                        maxZaznaczen = j+1;
+                                    }
+
                             }
 
 
