@@ -624,9 +624,9 @@ int main()
 
                 }
                 maxZaznaczen = 0;
-
+                ruchBialych = !ruchBialych;
             }
-            ruchBialych = !ruchBialych;
+
         }
 
 
