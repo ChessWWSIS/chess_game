@@ -314,14 +314,12 @@ int main()
                                     {
                                         okno.draw(zaznaczeniePola[j+2]);
                                         zaznaczeniePola[j+2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
-                                        zaznaczeniePola[j+2].setTexture(zaznaAtak);
                                         maxZaznaczen = j+3;
                                     }
                                     else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y)
                                     {
                                         okno.draw(zaznaczeniePola[j+4]);
                                         zaznaczeniePola[j+4].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
-                                        zaznaczeniePola[j+4].setTexture(zaznaAtak);
                                         maxZaznaczen = j+5;
                                     }
                                     else if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+((j+1)*100) == f[k].getPosition().y)
@@ -349,14 +347,12 @@ int main()
                                 {
                                     okno.draw(zaznaczeniePola[1]);
                                     zaznaczeniePola[1].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
-                                    zaznaczeniePola[1].setTexture(zaznaAtak);
                                     maxZaznaczen += 1;
                                 }
                                 else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y)
                                 {
                                     okno.draw(zaznaczeniePola[2]);
                                     zaznaczeniePola[2].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
-                                    zaznaczeniePola[2].setTexture(zaznaAtak);
                                     maxZaznaczen += 1;
                                 }
                                 if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y)
@@ -389,14 +385,12 @@ int main()
                                     {
                                         okno.draw(zaznaczeniePola[j+2]);
                                         zaznaczeniePola[j+2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
-                                        zaznaczeniePola[j+2].setTexture(zaznaAtak);
                                         maxZaznaczen = j+3;
                                     }
                                     else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y)
                                     {
                                         okno.draw(zaznaczeniePola[j+4]);
                                         zaznaczeniePola[j+4].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
-                                        zaznaczeniePola[j+4].setTexture(zaznaAtak);
                                         maxZaznaczen = j+5;
                                     }
                                     else if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y-((j+1)*100) == f[k].getPosition().y)
@@ -424,14 +418,12 @@ int main()
                                 {
                                     okno.draw(zaznaczeniePola[1]);
                                     zaznaczeniePola[1].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
-                                    zaznaczeniePola[1].setTexture(zaznaAtak);
                                     maxZaznaczen += 1;
                                 }
                                 else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y)
                                 {
                                     okno.draw(zaznaczeniePola[2]);
                                     zaznaczeniePola[2].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
-                                    zaznaczeniePola[2].setTexture(zaznaAtak);
                                     maxZaznaczen += 1;
                                 }
                                 if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y)
@@ -575,20 +567,21 @@ int main()
         {
             if (czyBiale[zaznaczonyPionek] == ruchBialych)
             {
-
                 for (int i = 0; i < maxZaznaczen; i++)
                 {
                     if (pozycjaMyszy.x == zaznaczeniePola[i].getPosition().x && pozycjaMyszy.y == zaznaczeniePola[i].getPosition().y)
                     {
-                        board[pozycjaMyszy.y/100][pozycjaMyszy.x/100] = zaznaczonyPionek+1;
-                        board[int(f[zaznaczonyPionek].getPosition().y/100+0.5)][int(f[zaznaczonyPionek].getPosition().x/100+0.5)] = 0;
+
+//                        board[pozycjaMyszy.y/100][pozycjaMyszy.x/100] = zaznaczonyPionek+1;
+//                        board[int(f[zaznaczonyPionek].getPosition().y/100+0.5)][int(f[zaznaczonyPionek].getPosition().x/100+0.5)] = 0;
                         f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
-                        for (int i = 0; i < 32; i++)
+                        ruchBialych = !ruchBialych;
+                        for (int j = 0; j < 32; j++)
                         {
 
-                            if (f[i].getPosition().x == f[zaznaczonyPionek].getPosition().x && f[i].getPosition().y == f[zaznaczonyPionek].getPosition().y && i != zaznaczonyPionek)
+                            if (f[j].getPosition().x == f[zaznaczonyPionek].getPosition().x && f[j].getPosition().y == f[zaznaczonyPionek].getPosition().y && j != zaznaczonyPionek)
                             {
-                                f[i].setPosition(1000,1000);
+                                f[j].setPosition(1000,1000);
                             }
                         }
 
@@ -597,7 +590,7 @@ int main()
                             czyNastRPionka[zaznaczonyPionek] = true;
                         }
 
-                        ruchBialych = !ruchBialych;
+
                     }
                     else
                     {
