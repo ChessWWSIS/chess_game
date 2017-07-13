@@ -47,9 +47,9 @@ int main()
     szachownica.setTexture(tekstura);
 
     for (int i = 0; i < 16; i++)
-        {
-            czyNastRPionka[i] = false;
-        }
+    {
+        czyNastRPionka[i] = false;
+    }
 
     for (int i = 0; i < 61; i++)
     {
@@ -307,37 +307,44 @@ int main()
                         {
                             for (int j = 0; j < 2; j++)
                             {
-
                                 for (int k = 0; k < 32; k++)
                                 {
-                                    if (f[i].getPosition().x-100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+
+
+                                    if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+((j+1)*100) == f[k].getPosition().y)
                                     {
-                                        okno.draw(zaznaczeniePola[j+2]);
-                                        zaznaczeniePola[j+2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
-                                        maxZaznaczen = j+3;
-                                    }
-                                    else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
-                                    {
-                                        okno.draw(zaznaczeniePola[j+4]);
-                                        zaznaczeniePola[j+4].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
-                                        maxZaznaczen = j+5;
-                                    }
-                                    else if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+((j+1)*100) == f[k].getPosition().y)
-                                    {
-                                        warunkowy = true;
-                                    }
-                                }
-                                if (warunkowy == false)
-                                    {
-                                        okno.draw(zaznaczeniePola[j]);
-                                        zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y+((j+1)*100));
-        //                                okno.draw(zaznaczeniePola);
-        //                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
-                                        maxZaznaczen += 1;
+                                        j = 2;
+                                        break;
 
                                     }
+
+                                }
+                                if (j != 2)
+                                {
+                                    okno.draw(zaznaczeniePola[j]);
+                                    zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y+((j+1)*100));
+                                        //                                okno.draw(zaznaczeniePola);
+                                        //                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
+                                    maxZaznaczen = j + 1;
+                                }
+
+
                             }
-                            warunkowy = false;
+                            for (int k = 0; k < 32; k++)
+                            {
+                                if (f[i].getPosition().x-100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+                                {
+                                    okno.draw(zaznaczeniePola[2]);
+                                    zaznaczeniePola[2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
+                                    maxZaznaczen = 3;
+                                }
+                                else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+                                {
+                                    okno.draw(zaznaczeniePola[3]);
+                                    zaznaczeniePola[3].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
+                                    maxZaznaczen = 4;
+                                }
+                            }
                         }
                         else
                         {
@@ -347,68 +354,79 @@ int main()
                                 {
                                     okno.draw(zaznaczeniePola[1]);
                                     zaznaczeniePola[1].setPosition(f[i].getPosition().x-100,f[i].getPosition().y+100);
-                                    maxZaznaczen += 1;
+                                    maxZaznaczen = 2;
                                 }
                                 else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
                                 {
                                     okno.draw(zaznaczeniePola[2]);
                                     zaznaczeniePola[2].setPosition(f[i].getPosition().x+100,f[i].getPosition().y+100);
-                                    maxZaznaczen += 1;
+                                    maxZaznaczen = 3;
                                 }
+
+                            }
+                            for (int k = 0; k < 32; k++)
+                            {
                                 if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y+100 == f[k].getPosition().y)
                                 {
                                     warunkowy = true;
+                                    break;
                                 }
+
                             }
-                            if (warunkowy == false)
+                            if (warunkowy != true)
                             {
                                 okno.draw(zaznaczeniePola[0]);
                                 zaznaczeniePola[0].setPosition(f[i].getPosition().x,f[i].getPosition().y+100);
                                 maxZaznaczen += 1;
-
                             }
                             warunkowy = false;
-
                         }
                     }
                     //zaznaczanie dla bialych pionkow
                     else if (i >= 8 && i < 16)
                     {
-                       if (czyNastRPionka[i] == false)
+                        if (czyNastRPionka[i] == false)
                         {
                             for (int j = 0; j < 2; j++)
                             {
-
                                 for (int k = 0; k < 32; k++)
                                 {
-                                    if (f[i].getPosition().x-100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+
+
+                                    if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y-((j+1)*100) == f[k].getPosition().y)
                                     {
-                                        okno.draw(zaznaczeniePola[j+2]);
-                                        zaznaczeniePola[j+2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
-                                        maxZaznaczen = j+3;
-                                    }
-                                    else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
-                                    {
-                                        okno.draw(zaznaczeniePola[j+4]);
-                                        zaznaczeniePola[j+4].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
-                                        maxZaznaczen = j+5;
-                                    }
-                                    else if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y-((j+1)*100) == f[k].getPosition().y)
-                                    {
-                                        warunkowy = true;
-                                    }
-                                }
-                                if (warunkowy == false)
-                                    {
-                                        okno.draw(zaznaczeniePola[j]);
-                                        zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y-((j+1)*100));
-        //                                okno.draw(zaznaczeniePola);
-        //                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
-                                        maxZaznaczen += 1;
+                                        j = 2;
+                                        break;
 
                                     }
+
+                                }
+                                if (j != 2)
+                                {
+                                    okno.draw(zaznaczeniePola[j]);
+                                    zaznaczeniePola[j].setPosition(f[i].getPosition().x,f[i].getPosition().y-((j+1)*100));
+                                        //                                okno.draw(zaznaczeniePola);
+                                        //                                zaznaczeniePola.setPosition(f[i].getPosition().x,f[i].getPosition().y+200);
+                                    maxZaznaczen = j + 1;
+                                }
+
+
                             }
-                            warunkowy = false;
+                            for (int k = 0; k < 32; k++)
+                            {
+                                if (f[i].getPosition().x-100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+                                {
+                                    okno.draw(zaznaczeniePola[2]);
+                                    zaznaczeniePola[2].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
+                                    maxZaznaczen = 3;
+                                }
+                                else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
+                                {
+                                    okno.draw(zaznaczeniePola[3]);
+                                    zaznaczeniePola[3].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
+                                    maxZaznaczen = 4;
+                                }
+                            }
                         }
                         else
                         {
@@ -418,28 +436,32 @@ int main()
                                 {
                                     okno.draw(zaznaczeniePola[1]);
                                     zaznaczeniePola[1].setPosition(f[i].getPosition().x-100,f[i].getPosition().y-100);
-                                    maxZaznaczen += 1;
+                                    maxZaznaczen = 2;
                                 }
                                 else if (f[i].getPosition().x+100 == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y && czyBiale[k] != ruchBialych)
                                 {
                                     okno.draw(zaznaczeniePola[2]);
                                     zaznaczeniePola[2].setPosition(f[i].getPosition().x+100,f[i].getPosition().y-100);
-                                    maxZaznaczen += 1;
+                                    maxZaznaczen = 3;
                                 }
+
+                            }
+                            for (int k = 0; k < 32; k++)
+                            {
                                 if (f[i].getPosition().x == f[k].getPosition().x && f[i].getPosition().y-100 == f[k].getPosition().y)
                                 {
                                     warunkowy = true;
+                                    break;
                                 }
+
                             }
-                            if (warunkowy == false)
+                            if (warunkowy != true)
                             {
                                 okno.draw(zaznaczeniePola[0]);
                                 zaznaczeniePola[0].setPosition(f[i].getPosition().x,f[i].getPosition().y-100);
                                 maxZaznaczen += 1;
-
                             }
                             warunkowy = false;
-
                         }
                     }
                     //zaznaczanie wszystkich wiez
@@ -592,7 +614,7 @@ int main()
                         }
                         ruchBialych = !ruchBialych;
 
-
+                        czyPoleZaznaczone = 0;
                     }
                     else
                     {
@@ -602,12 +624,6 @@ int main()
                 maxZaznaczen = 0;
 
             }
-
-
-
-
-
-
         }
 
 
