@@ -598,7 +598,14 @@ int main()
 //                        board[int(f[zaznaczonyPionek].getPosition().y/100+0.5)][int(f[zaznaczonyPionek].getPosition().x/100+0.5)] = 0;
                         f[zaznaczonyPionek].setPosition(pozycjaMyszy.x,pozycjaMyszy.y);
 
-                        for (int j = 0; j < 32; j++)
+                        if (zaznaczonyPionek < 16)
+                        {
+                            czyNastRPionka[zaznaczonyPionek] = true;
+                        }
+                        czyPoleZaznaczone = 0;
+
+                    }
+                    for (int j = 0; j < 32; j++)
                         {
 
                             if (f[j].getPosition().x == f[zaznaczonyPionek].getPosition().x && f[j].getPosition().y == f[zaznaczonyPionek].getPosition().y && j != zaznaczonyPionek)
@@ -606,24 +613,20 @@ int main()
                                 f[j].setPosition(1000,1000);
                                 break;
                             }
+
                         }
 
-                        if (zaznaczonyPionek < 16)
-                        {
-                            czyNastRPionka[zaznaczonyPionek] = true;
-                        }
-                        ruchBialych = !ruchBialych;
 
-                        czyPoleZaznaczone = 0;
-                    }
-                    else
-                    {
-                        czyPoleZaznaczone = 0;
-                    }
+
+
+
+
+
                 }
                 maxZaznaczen = 0;
 
             }
+            ruchBialych = !ruchBialych;
         }
 
 
