@@ -43,10 +43,8 @@ void czyKoniecGry (int c)
 
         if (f[j].getPosition().x == zaznaczeniePola[c].getPosition().x && f[j].getPosition().y == zaznaczeniePola[c].getPosition().y && czyBiale[j] != ruchBialych)
         {
-            graWToku = false;
             okno.draw(graSkonczona);
             graSkonczona.setPosition(0,0);
-            break;
         }
 
     }
