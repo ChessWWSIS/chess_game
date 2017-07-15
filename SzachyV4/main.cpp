@@ -1499,8 +1499,14 @@ int main()
                             czyNastRPionka[zaznaczonyPionek] = true;
                         }
                         czyPoleZaznaczone = 0;
+                        ruchBialych = !ruchBialych;
 
                     }
+                    else if (pozycjaMyszy.x != zaznaczeniePola[i].getPosition().x || pozycjaMyszy.y != zaznaczeniePola[i].getPosition().y)
+                    {
+                        ruchBialych = ruchBialych;
+                    }
+
                     for (int j = 0; j < 32; j++)
                         {
 
@@ -1520,7 +1526,7 @@ int main()
 
                 }
                 maxZaznaczen = 0;
-                ruchBialych = !ruchBialych;
+
             }
 
         }
